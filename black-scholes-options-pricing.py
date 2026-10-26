@@ -16,10 +16,10 @@ class Black_Scholes(object):
 
 
     def d1(self):
-        return np.log(self.S / self.pv_k) / (self.vol * math.sqrt(self.T)) + (self.vol * math.sqrt(self.T) / 2)
+        return (np.log(self.S / self.K) + (self.r + (self.vol ** 2 / 2)) * self.T) / (self.vol * math.sqrt(self.T))
     
     def d2(self):
-        return self.d1() - (self.vol * math.sqrt(self.T))
+        return self.d1() - self.vol * math.sqrt(self.T)
     
     def call_price(self):
         return self.S * norm.cdf(self.d1()) - self.pv_k * norm.cdf(self.d2())
@@ -33,12 +33,3 @@ class Black_Scholes(object):
 bs = Black_Scholes(S=120, K=100, T=.25, r=.0168, vol=.4)
 print(f"Call Price: {bs.call_price()}")
 print(f"Put Price: {bs.put_price()}")
-
-
-
-
-
-"""todo: add delta, gamma, theta, vega & rho"""
-
-
-
